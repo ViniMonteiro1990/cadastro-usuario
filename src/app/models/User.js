@@ -1,5 +1,7 @@
 const db = require('../../config/db')
 const {hash} = require('bcryptjs')
+const { update } = require('../constrollers/UserController')
+const { array } = require('../middlewares/multer')
 
 module.exports = {
 async findOne(filters){
@@ -21,6 +23,7 @@ async findOne(filters){
     },
     async create(data){
         
+        try{
             const query = `
                 INSERT INTO users(
                     name,
@@ -45,8 +48,32 @@ const values = [
     data.address        
 ]
 
-const results = await db.query(query, values)
-return results.rows[0].id
+        const results = await db.query(query, values)
+        return results.rows[0].id
+    }catch{
+    console.error(err)
+    }
 
+},
+    async update(id, fields){
+        let query = "UPDATE users SET"
+
+        Object.keys(fields).map((key, index, array) => {
+            if((index + 1) < array.length) {
+                query = `${query}
+                    ${key} = '${fields[key]}',
+                `
+
+            }else {
+                //last iteration sem virgula
+                query = `${query}
+                    ${key} = '${fields[key]}'
+                    WHERE id = ${id}
+                `
+            }
+        })
+
+        await db.query(query)
+        return 
     }
 }
