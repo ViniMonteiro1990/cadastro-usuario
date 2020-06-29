@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
 
 :root{
     --primary-color: #fd951f;
@@ -543,10 +542,19 @@ form .item #photos-preview img{
 .user-register.container.form{
     max-width: 500px;
 }
-.form input[name="email"],
+/* .form input[name="email"],
 .form input[name="password"],
 .form input[name="cpf_cpnj"],
 .form input[name="passwordRepeat"],
 .form input[name="cep"]{
     max-width: 60%;
+}
+ */
+/*Validate Errors*/
+
+.input .error {
+    background-color: #e743c3;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
 }
