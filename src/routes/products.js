@@ -12,11 +12,11 @@ routes.get('/search',searchController.index)
 //Products
 routes.get('/create', onlyUsers ,productController.create)
 routes.get('/:id', productController.show)
-routes.get('/:id/edit',productController.edit)
+routes.get('/:id/edit', onlyUsers ,productController.edit)
 
-routes.post('/',multer.array("photos", 6) ,productController.post)
-routes.put('/',multer.array("photos", 6) , productController.put)
-routes.delete('/', productController.delete)
+routes.post('/', onlyUsers ,multer.array("photos", 6) ,productController.post)
+routes.put('/', onlyUsers ,multer.array("photos", 6) , productController.put)
+routes.delete('/', onlyUsers ,productController.delete)
 
 
 module.exports = routes

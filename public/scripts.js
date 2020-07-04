@@ -39,7 +39,7 @@ const Mask = {
     cpfCnpj(value){
         value = value.replace(/\D/g,"")
 
-        if(value.length > 15){
+        if(value.length > 14){
             value = value.slice(0, -1)
         }
 
@@ -49,7 +49,7 @@ const Mask = {
             //1122233344445
 
             //11.22233344445
-            value = value.replace(/(\d{3})(\d)/,"$1.$2")
+            value = value.replace(/(\d{2})(\d)/,"$1.$2")
             //11.222.33344445
             value = value.replace(/(\d{3})(\d)/,"$1.$2")
             //11.222.333/44445
@@ -265,7 +265,7 @@ const Validate = {
 
             const cleanValues = value.replace(/\D/g, "")
 
-            if(cleanValues.length > 11 && cleanValues.length !== 15){
+            if(cleanValues.length > 11 && cleanValues.length !== 14){
                 error = "CNPJ incorreto"
             }else if(cleanValues.length < 12 && cleanValues.length !== 11){
                 error = "CPF incorreto"
