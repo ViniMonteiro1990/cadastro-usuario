@@ -62,7 +62,7 @@ async function reset(req, res, next){
 
     //verificar se o token bate
 
-    if(token != user.reset.token) return res.render('session/password-reset', {
+    if(token != user.reset_token) return res.render('session/password-reset', {
         user: req.body,
         token,
         error: 'Token inválido! Solicite uma nova recuperação de senha'
