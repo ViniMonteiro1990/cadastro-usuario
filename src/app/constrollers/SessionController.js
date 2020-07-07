@@ -1,5 +1,6 @@
 const crypto = require ('crypto')
 const User = require('../models/User')
+const mailer = require('../lib/mailer')
 
 module.exports= {
 
@@ -26,7 +27,8 @@ module.exports= {
     async forgot(req,res){
         const user = req.user
 
-        //um token para esse usuario
+        try{
+               //um token para esse usuario
         const token = crypto.randomBytes(20).toString('hex')
 
         //criar uma expiração
@@ -40,8 +42,55 @@ module.exports= {
 
         //enviar email com um link de recuperação de senha
 
+        await mailer.sendMail({
+            to: user.email,
+            from: 'no-reply@launchstore.com.br',
+            subject: 'Recuperação de senha',
+            html: `
+                <h2>Perdeu a senha?</h2>
+                <p>Não se preocupe, clique no link para recuperar a senha! </p>
+                <p>
+                    <a href="http://localhost:3000/users/password-reset?token=${token}" target="_blank">
+                        RECUPERAR SENHA
+                    </a>
+                </p>
+            `
+        })
+
+
         //avisar o usuario que enviamos o email
+        return res.render('session/forgot-password',{
+            success: "Verifique seu email para recuperar sua senha"
+        })
 
+        }catch(err){
+            console.error(err)
+            return res.render('session/forgot-password',{
+            error: "Erro inesperado, tente novamente!"
+        })     
     }
+    },
+    resetForm(req,res){
+        return res.render('session/password-reset', {token: req.query.token})
+    },
+    reset(req,res){
+        const {email, password, passwordRepeat, token} = req.body
 
+        try{
+
+
+            //cria um novo hash de senha
+
+            //atualiza o usuário
+
+            //avisa o usuário que ele tem uma nova senha
+
+
+        }catch(err){
+            console.error(err)
+            return res.render('session/password-reset',{
+            error: "Erro inesperado, tente novamente!"
+        })
+        }  
+    }
 }  

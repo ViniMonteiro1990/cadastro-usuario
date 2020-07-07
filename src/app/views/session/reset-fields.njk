@@ -18,8 +18,21 @@
             type="password"
             name="password"
             value="{{user.email}}"         
-            placeholder="Digite uma nova senha"            
+            placeholder="Digite sua senha"            
         >
     </div>
 </div>
 
+<div class="item">
+    <div>Repetir senha</div>
+    <div class="input">
+        <input
+            type="password"
+            name="passwordRepeat"
+            value="{{user.email}}"         
+            placeholder="Repita a senha novamente!"            
+        >
+    </div>
+</div>
+
+<input type="hidden" name="token" value="{{token}}">
